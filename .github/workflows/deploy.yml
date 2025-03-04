@@ -8,8 +8,8 @@ on:
 
 jobs:
   deploy:
+    environment: AWS S3  
     runs-on: ubuntu-latest
-    environment: AWS S3
 
     steps:
       - name: Checkout code
@@ -38,9 +38,10 @@ jobs:
           AWS_REGION: ap-south-1
 
       - name: Invalidate CloudFront Cache
-        run: |
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ap-south-1
+        run: |
+          echo "Invalidating CloudFront cache..."
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
