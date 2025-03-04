@@ -11,10 +11,6 @@ jobs:
     environment: AWS S3  
     runs-on: ubuntu-latest
 
-    permissions:
-      id-token: write  # Allows OIDC-based authentication for AWS
-      contents: read
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -33,7 +29,7 @@ jobs:
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@v0.5.1
         with:
-          args: "--follow-symlinks --delete --exact-timestamps --exclude 'node_modules/*'"
+          args: "--follow-symlinks --delete dist/"
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
