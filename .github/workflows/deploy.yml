@@ -29,25 +29,7 @@ jobs:
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@v0.5.1
         with:
-          args: > 
-            --delete 
-            --exclude "node_modules/*" 
-            --exclude ".git/*" 
-            --exclude ".github/*" 
-            --exclude "src/*" 
-            --exclude "public/*"
-            --exclude ".gitignore"
-            --exclude ".prettierignore"
-            --exclude ".prettierrc.js"
-            --exclude "jsconfig.json"
-            --exclude "package-lock.json"
-            --exclude "package.json"
-            --exclude "postcss.config.js"
-            --exclude "README.md"
-            --exclude "tailwind.config.js"
-            --exclude "vite.config.js"
-            --exclude "yarn.lock"
-          source_dir: dist/
+          args: "--delete --exclude 'node_modules/*' --exclude '.git/*' --exclude '.github/*' --exclude 'src/*' --exclude 'public/*' --exclude '.gitignore' --exclude '.prettierignore' --exclude '.prettierrc.js' --exclude 'jsconfig.json' --exclude 'package-lock.json' --exclude 'package.json' --exclude 'postcss.config.js' --exclude 'README.md' --exclude 'tailwind.config.js' --exclude 'vite.config.js' --exclude 'yarn.lock'"
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
